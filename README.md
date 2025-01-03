@@ -7,4 +7,4 @@
 
 ## 4) If you do not specify char* argv[] when starting the program, the output will be in two formats.
 
-## 5) Building this project (promt: "cd path/to/cloning_repository" -> "cd build" -> "cmake ..")
+## 5) Building this project (prompt: "cd path/to/cloning_repository" -> "cd build" -> "cmake ..")
