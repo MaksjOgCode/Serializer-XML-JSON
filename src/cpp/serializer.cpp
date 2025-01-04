@@ -20,24 +20,19 @@ void print_json() {
 
 
 void S::ChainOfBlocks::add_field(const std::string& name, const std::string& value) {
-   if (this->current_block != nullptr)
-      this->current_block->fields.emplace_back(name, value);
+   if ( (! this->root_block) || ( this->root_block->sub_blocks.empty() ) )
+      throw std::runtime_error("No block to add field to");
+
+   this->root_block.get()->sub_blocks.back().fields.emplace_back(name, value);
 }
 
 
 
 void S::ChainOfBlocks::add_block(const std::string& name) {
-   if (this->root_block == nullptr)
-   {
-      this->current_block = new Block (name);
-      this->root_block = std::unique_ptr <Block> (this->current_block);
-   }
+   if (! this->root_block )
+      this->root_block = std::make_unique<Block>(name);
    else
-   {
-      auto new_block = std::make_unique <Block> (name);
-      this->current_block = new_block.get();
-      this->root_block->sub_blocks.push_back( std::move(new_block) );
-   }
+      this->root_block.get()->sub_blocks.push_back( Block(name) );
 }
 
 
@@ -64,7 +59,7 @@ void S::XML_Serializer::build_block(const Block& block, int indent) {
 
    for (const auto& sub_block : block.sub_blocks)
    {
-      build_block(*sub_block, indent + 2);
+      build_block(sub_block, indent + 2);
       std::cout << "\n";
    }
 
@@ -110,5 +105,5 @@ void S::JSON_Serializer::build_block(const Block& block, int indent) {
       std::cout << indent_str << "},\n\n";
 
    for (const auto& sub_block : block.sub_blocks)
-      build_block(*sub_block, indent + 2);
+      build_block(sub_block, indent + 2);
 }

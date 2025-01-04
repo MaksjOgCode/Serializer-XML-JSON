@@ -27,25 +27,22 @@ public:
 
 class ChainOfBlocks : public Serializer {
 public:
-	struct Block {
-		using name_field = std::string;
-		using value_field = std::string;
+   struct Block {
+      using name_field = std::string;
+      using value_field = std::string;
 
-		Block(const std::string& name) : name_block(name) {}
+      Block(const std::string& name) : name_block(name) {}
 
-		std::string name_block{};
-		std::vector<std::pair<name_field, value_field>> fields{};
-		std::vector<std::unique_ptr<Block>> sub_blocks{};
-	};
+      std::string name_block{};
+      std::vector<std::pair<name_field, value_field>> fields{};
+      std::vector <Block> sub_blocks{};
+   };
 
-	void add_field(const std::string& name, const std::string& value) override;
-
-	void add_block(const std::string& name) override;
+   void add_field(const std::string& name, const std::string& value) override;
+   void add_block(const std::string& name) override;
 
 protected:
-	std::unique_ptr<Block> root_block = nullptr;
-
-	Block* current_block = nullptr;
+   std::unique_ptr <Block> root_block = nullptr;
 };
 
 

@@ -20,7 +20,7 @@ int main( int argc, char* argv[] ) {
        std::string_view format = argv[1];
        
        if (format == "xml") {
-          SERIALIZER::XML_Serializer  xml_serializer  {};
+          SERIALIZER::XML_Serializer  xml_serializer {};
        
           xml_serializer.add_block("Vehicles");
           for (const auto& vehicle : vehicles)
