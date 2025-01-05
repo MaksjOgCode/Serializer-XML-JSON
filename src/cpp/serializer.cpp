@@ -31,7 +31,6 @@ void S::ChainOfBlocks::add_field(const std::string& name, const std::string& val
 
 void S::ChainOfBlocks::add_block(const std::string& name) {
    this->blocks.emplace_back(name);
-   this->current_block = std::prev(blocks.end());
 }
 
 
