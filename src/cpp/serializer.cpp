@@ -21,28 +21,28 @@ void print_json() {
 
 
 void S::ChainOfBlocks::add_field(const std::string& name, const std::string& value) {
-   if (blocks.empty())
+   if ( this->blocks.empty() )
       throw std::runtime_error("No block to add field to [-1]:");
 
-   blocks.back().fields.emplace_back(name, value);
+   this->blocks.back().fields.emplace_back(name, value);
 }
 
 
 
 void S::ChainOfBlocks::add_block(const std::string& name) {
-   blocks.emplace_back(name);
-   current_block = std::prev(blocks.end());
+   this->blocks.emplace_back(name);
+   this->current_block = std::prev(blocks.end());
 }
 
 
 
 void S::XML_Serializer::build() {
-   if ( !blocks.empty() )
+   if (! (this->blocks.empty()) )
    {
       print_xml();
 
       for (const auto& block : blocks)
-         build_block(block, 0);
+         this->build_block(block, 0);
    }
 }
 
@@ -61,13 +61,13 @@ void S::XML_Serializer::build_block(const Block& block, int indent) {
 
 
 void S::JSON_Serializer::build() {
-   if ( !blocks.empty() )
+   if (! (this->blocks.empty()) )
    {
       print_json();
       std::cout << "{\n\n";
 
       for (const auto& block : blocks)
-         build_block(block, 0);
+         this->build_block(block, 0);
 
       std::cout << "}\n";
    }
