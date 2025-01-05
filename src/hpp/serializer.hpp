@@ -43,7 +43,6 @@ public:
 
 protected:
     std::vector<Block> blocks{};
-    std::vector<Block>::iterator current_block;
 };
 
 
